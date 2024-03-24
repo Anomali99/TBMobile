@@ -2,7 +2,15 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components/molecules';
-import {Home, Login, Splash, Transaksi, Register} from '../pages';
+import {
+  Home,
+  Login,
+  Splash,
+  Transaksi,
+  Register,
+  Profil,
+  Detail,
+} from '../pages';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -14,6 +22,11 @@ const MainApp = () => {
       <Tab.Screen
         name="Transaksi"
         component={Transaksi}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Profil"
+        component={Profil}
         options={{headerShown: false}}
       />
     </Tab.Navigator>
@@ -41,6 +54,11 @@ const Router = () => {
       <Stack.Screen
         name="MainApp"
         component={MainApp}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Detail"
+        component={Detail}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

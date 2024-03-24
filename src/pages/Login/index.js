@@ -9,14 +9,46 @@ import {
   Alert,
 } from 'react-native';
 import {logoApp} from '../../assets/image';
+import {insertUsers} from '../../database';
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    Alert.alert('Login', `Username: ${username}, Password: ${password}`);
-    navigation.replace('MainApp');
+    fetch('http://192.168.68.219:5127/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (!data.message) {
+          insertUsers(
+            data.id,
+            data.nama,
+            data.username,
+            data.level,
+            data.telepon,
+          );
+          navigation.replace('MainApp');
+        } else {
+          Alert.alert('Login gagal', `pastikan username atau password benar`);
+        }
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
   };
 
   return (

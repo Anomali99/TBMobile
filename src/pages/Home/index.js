@@ -16,10 +16,12 @@ import {
   usersOFF,
 } from '../../assets/icon';
 import {logoApp} from '../../assets/image';
+import {selectUsers} from '../../database';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [buku, setBuku] = useState([]);
   const [searchKey, setKey] = useState('');
+  const [level, setLevel] = useState('');
 
   const searchBooks = () => {
     var key = searchKey.trim();
@@ -55,6 +57,10 @@ const Home = () => {
   };
 
   useEffect(() => {
+    selectUsers(users => {
+      setLevel(users[0].level);
+    });
+
     fetch('http://192.168.68.219:5127/buku', {
       method: 'GET',
       headers: {
@@ -97,26 +103,28 @@ const Home = () => {
             <Image source={cari} style={{marginRight: 10}} />
           </Pressable>
         </View>
-        <View style={styles.menuContainer}>
-          <View style={{alignItems: 'center'}}>
-            <View style={styles.menuItem}>
-              <Image source={usersOFF} />
+        {level === 'pegawai' ? (
+          <View style={styles.menuContainer}>
+            <View style={{alignItems: 'center'}}>
+              <View style={styles.menuItem}>
+                <Image source={usersOFF} />
+              </View>
+              <Text style={{color: '#000000'}}>Users</Text>
             </View>
-            <Text style={{color: '#000000'}}>Users</Text>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={styles.menuItem}>
-              <Image source={transaksiOFF} />
+            <View style={{alignItems: 'center'}}>
+              <View style={styles.menuItem}>
+                <Image source={transaksiOFF} />
+              </View>
+              <Text style={{color: '#000000'}}>Transaksi</Text>
             </View>
-            <Text style={{color: '#000000'}}>Transaksi</Text>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={styles.menuItem}>
-              <Image source={bukuOFF} />
+            <View style={{alignItems: 'center'}}>
+              <View style={styles.menuItem}>
+                <Image source={bukuOFF} />
+              </View>
+              <Text style={{color: '#000000'}}>Buku</Text>
             </View>
-            <Text style={{color: '#000000'}}>Buku</Text>
           </View>
-        </View>
+        ) : null}
         <ScrollView
           vertical
           showsVerticalScrollIndicator={false}
@@ -128,7 +136,9 @@ const Home = () => {
                   <View style={styles.productItem}>
                     <Pressable
                       style={{flex: 1, alignItems: 'center'}}
-                      onPress={() => {}}>
+                      onPress={() =>
+                        navigation.navigate('Detail', {id: item.id})
+                      }>
                       <Image
                         source={{uri: item.cover}}
                         style={styles.productImg}

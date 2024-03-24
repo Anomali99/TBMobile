@@ -1,6 +1,13 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
-import {homeON, transaksiON, homeOFF, transaksiOFF} from '../../../assets/icon';
+import {
+  homeON,
+  transaksiON,
+  homeOFF,
+  transaksiOFF,
+  profilON,
+  profilOFF,
+} from '../../../assets/icon';
 
 const Icon = ({label, focus}) => {
   switch (label) {
@@ -12,6 +19,8 @@ const Icon = ({label, focus}) => {
       ) : (
         <Image source={transaksiOFF} />
       );
+    case 'Profil':
+      return focus ? <Image source={profilON} /> : <Image source={profilOFF} />;
   }
 };
 

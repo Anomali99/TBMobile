@@ -7,6 +7,8 @@ import transaksiOFF from './transaksi-off.png';
 import keranjangON from './keranjang-on.png';
 import usersON from './users-on.png';
 import usersOFF from './users-off.png';
+import profilON from './profil-on.png';
+import profilOFF from './profil-off.png';
 import cari from './cari.png';
 
 export {
@@ -19,5 +21,7 @@ export {
   keranjangON,
   usersON,
   usersOFF,
+  profilON,
+  profilOFF,
   cari,
 };

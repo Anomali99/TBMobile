@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {logoApp} from '../../assets/image';
+import {register} from '../../api';
 import {
   StyleSheet,
   Text,
@@ -8,7 +10,6 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import {logoApp} from '../../assets/image';
 
 const Register = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -17,35 +18,14 @@ const Register = ({navigation}) => {
   const [telepon, setTelepon] = useState('');
 
   const handleRegiter = () => {
-    fetch('http://192.168.68.219:5127/user/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-        nama: nama,
-        telepon: telepon,
-      }),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data.message == 'registrasi berhasil') {
-          Alert.alert('Register berhasil', 'silahkan login');
-          navigation.replace('Login');
-        } else {
-          Alert.alert('Register gagal', data.message);
-        }
-      })
-      .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-      });
+    register(username, password, nama, telepon, data => {
+      if (data.message == 'registrasi berhasil') {
+        Alert.alert('Register berhasil', 'silahkan login');
+        navigation.replace('Login');
+      } else {
+        Alert.alert('Register gagal', data.message);
+      }
+    });
   };
 
   return (

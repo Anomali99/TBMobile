@@ -12,7 +12,7 @@ import {
   Pressable,
 } from 'react-native';
 
-const Detail = ({route, navigation}) => {
+const DetailProduk = ({route, navigation}) => {
   const {id} = route.params;
   const [judul, setJudul] = useState('');
   const [sinopsis, setSinopsis] = useState('');
@@ -55,10 +55,10 @@ const Detail = ({route, navigation}) => {
             <Text style={styles.text}>IDR {harga}</Text>
             <Text style={styles.label}>Stok : {stok}</Text>
             <Pressable onPress={() => {}} style={styles.btn}>
-              <Text style={styles.btnText}>Add Comment</Text>
+              <Text style={styles.btnText}>Edit Produk</Text>
             </Pressable>
             <Pressable onPress={() => {}} style={styles.btn}>
-              <Text style={styles.btnText}>Masukkan Keranjang</Text>
+              <Text style={styles.btnText}>Hapus Produk</Text>
             </Pressable>
           </View>
         </View>
@@ -91,7 +91,7 @@ const Detail = ({route, navigation}) => {
   );
 };
 
-export default Detail;
+export default DetailProduk;
 
 const styles = StyleSheet.create({
   container: {backgroundColor: '#010101', flex: 1},

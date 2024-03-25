@@ -10,6 +10,8 @@ import {
   Register,
   Profil,
   Detail,
+  Produk,
+  DetailProduk,
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -59,6 +61,16 @@ const Router = () => {
       <Stack.Screen
         name="Detail"
         component={Detail}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Produk"
+        component={Produk}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="DetailProduk"
+        component={DetailProduk}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

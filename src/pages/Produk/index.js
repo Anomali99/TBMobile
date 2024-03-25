@@ -19,38 +19,10 @@ import {
   usersOFF,
 } from '../../assets/icon';
 
-const Home = ({navigation}) => {
+const Produk = ({navigation}) => {
   const [buku, setBuku] = useState([]);
-  const [searchKey, setKey] = useState('');
-  const [level, setLevel] = useState('');
-
-  const searchBooks = () => {
-    var key = searchKey.trim();
-    var url = '';
-    if (key == '') {
-      getAllBuku(data => {
-        if (data != 'message') {
-          setBuku(data);
-        } else {
-          setBuku(null);
-        }
-      });
-    } else {
-      getBuku(key, data => {
-        if (data != 'message') {
-          setBuku(data);
-        } else {
-          setBuku(null);
-        }
-      });
-    }
-  };
 
   useEffect(() => {
-    selectUsers(users => {
-      setLevel(users[0].level);
-    });
-
     getAllBuku(data => {
       if (data != 'message') {
         setBuku(data);
@@ -64,48 +36,41 @@ const Home = ({navigation}) => {
     <View style={styles.container}>
       <View>
         <View style={styles.barContainer}>
-          <Image source={logoApp} style={styles.iconBar} />
+          <Pressable onPress={() => navigation.goBack()}>
+            <Image source={logoApp} style={styles.iconBar} />
+          </Pressable>
           <Image source={keranjangON} style={styles.iconBar} />
         </View>
-        <View></View>
       </View>
       <View style={styles.contentContainer}>
-        <View style={styles.searchBar}>
-          <TextInput
-            value={searchKey}
-            onChangeText={text => setKey(text)}
-            placeholder="Cari Buku .."
-            placeholderTextColor="#AAA"
-            style={{color: '#000000', width: 200}}
-          />
-          <Pressable onPress={searchBooks}>
-            <Image source={cari} style={{marginRight: 10}} />
-          </Pressable>
-        </View>
-        {level === 'pegawai' ? (
-          <View style={styles.menuContainer}>
-            <View style={{alignItems: 'center'}}>
-              <View style={styles.menuItem}>
-                <Image source={usersOFF} />
-              </View>
-              <Text style={{color: '#000000'}}>Users</Text>
-            </View>
-            <View style={{alignItems: 'center'}}>
-              <View style={styles.menuItem}>
-                <Image source={transaksiOFF} />
-              </View>
-              <Text style={{color: '#000000'}}>Transaksi</Text>
-            </View>
-            <View style={{alignItems: 'center'}}>
-              <View style={styles.menuItem}>
-                <Pressable onPress={() => navigation.navigate('Produk')}>
-                  <Image source={bukuOFF} />
-                </Pressable>
-              </View>
-              <Text style={{color: '#000000'}}>Buku</Text>
-            </View>
+        <View
+          style={{
+            paddingHorizontal: 50,
+            marginVertical: 20,
+          }}>
+          <View
+            style={{
+              width: '100%',
+              height: 40,
+              backgroundColor: '#B6895B',
+              borderColor: '#666',
+              borderWidth: 2,
+              borderStyle: 'solid',
+              borderRadius: 15,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: '#FFF',
+              }}>
+              Tambah Produk
+            </Text>
           </View>
-        ) : null}
+        </View>
         <ScrollView
           vertical
           showsVerticalScrollIndicator={false}
@@ -118,7 +83,7 @@ const Home = ({navigation}) => {
                     <Pressable
                       style={{flex: 1, alignItems: 'center'}}
                       onPress={() =>
-                        navigation.navigate('Detail', {id: item.id})
+                        navigation.navigate('DetailProduk', {id: item.id})
                       }>
                       <Image
                         source={{uri: item.cover}}
@@ -136,11 +101,11 @@ const Home = ({navigation}) => {
   );
 };
 
-export default Home;
+export default Produk;
 
 const styles = StyleSheet.create({
   container: {backgroundColor: '#010101', flex: 1},
-  scrollContainer: {paddingHorizontal: 30, paddingBottom: 50, marginTop: 20},
+  scrollContainer: {paddingHorizontal: 30, paddingBottom: 50},
   iconBar: {height: 40, width: 40},
   barContainer: {
     flexDirection: 'row',
@@ -154,31 +119,6 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    marginTop: 20,
-  },
-  searchBar: {
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginHorizontal: 30,
-    borderRadius: 10,
-    marginTop: -30,
-    elevation: 20,
-    shadowColor: '#000000',
-    padding: 5,
-  },
-  menuContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 30,
-    marginTop: 40,
-  },
-  menuItem: {
-    backgroundColor: '#B6895B',
-    padding: 15,
-    borderRadius: 10,
   },
   scrollView: {
     flexDirection: 'row',
